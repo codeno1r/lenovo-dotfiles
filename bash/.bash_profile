@@ -11,7 +11,7 @@ export PATH=/opt/WebWork\ Tracker:$PATH
 
 # startx
 
-# Start Hyprland automatically on TTY1
-if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
-  exec Hyprland
-fi
+# # Start Hyprland automatically on TTY1
+# if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
+#   exec Hyprland
+# fi
