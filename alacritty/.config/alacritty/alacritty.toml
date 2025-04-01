@@ -6,6 +6,10 @@ general.import = [
   "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
+[colors.primary]
+# foreground = "#ffffff"
+background = "#09090b"
+
 [terminal.shell]
 program = "/usr/bin/bash"
 

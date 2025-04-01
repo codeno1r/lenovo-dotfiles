@@ -12,25 +12,25 @@
   "margin-bottom": 0,
   "margin-right": 10,
   "modules-left": [
+    "hyprland/workspaces",
     "tray",
     "custom/vpn",
     "hyprland/mode",
     "hyprland/scratchpad",
-    "custom/media",
-    "hyprland/window"
+    "custom/media"
   ],
   "modules-center": [
-    "hyprland/workspaces"
+    "hyprland/window"
   ],
   "modules-right": [
     "cpu",
     "memory",
     "battery",
     "battery#bat2",
-    "backlight",
     "pulseaudio",
-    "network",
+    "backlight",
     "clock"
+    // "network",
     // "temperature",
     // "custom/power"
     // "mpd",
@@ -160,7 +160,8 @@
   },
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
+    // "format": "{percent}% {icon}",
+    "format": "{icon}",
     "format-icons": [
       "",
       "",
@@ -223,7 +224,8 @@
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     "format-muted": " {format_source}",
-    "format-source": "{volume}% ",
+    // "format-source": "{volume}% ",
+    "format-source": "",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "",
