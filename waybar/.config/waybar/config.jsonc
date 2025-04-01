@@ -12,21 +12,22 @@
   "margin-bottom": 0,
   "margin-right": 10,
   "modules-left": [
-    "hyprland/workspaces",
     "tray",
     "custom/vpn",
     "hyprland/mode",
     "hyprland/scratchpad",
-    "custom/media"
-  ],
-  "modules-center": [
+    "custom/media",
     "hyprland/window"
   ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
   "modules-right": [
-    "battery",
-    "battery#bat2",
     "cpu",
     "memory",
+    "battery",
+    "battery#bat2",
+    "backlight",
     "pulseaudio",
     "network",
     "clock"
@@ -35,7 +36,6 @@
     // "mpd",
     // "idle_inhibitor",
     // "power-profiles-daemon",
-    // "backlight",
     // "keyboard-state",
     // "sway/language",
   ],

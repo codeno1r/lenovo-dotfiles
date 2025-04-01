@@ -3,14 +3,13 @@
 networkstatus=$(nmcli -t -f STATE g)
 
 if [ "$networkstatus" = "connected" ]; then
-  interface=$(nmcli -t -f DEVICE,TYPE connection show --active | awk -F: '$2=="wifi" {print $1; exit}')
+  connection_info=$(nmcli -t -f DEVICE,TYPE connection show --active)
 
-  if [ -n "$interface" ]; then
-    ssid=$(nmcli -t -f SSID device wifi show "$interface" | sed 's/SSID://')
-    echo " $ssid"
+  if echo "$connection_info" | grep -q ":802-11-wireless"; then
+    # interface=$(echo "$connection_info" | grep ":802-11-wireless" | cut -d: -f1)
+    ssid=$(nmcli -t -f SSID device wifi show | sed 's/SSID: //')
+    echo "$ssid"
   else
     echo "ETH"
   fi
-else
-  echo "Disconnected"
 fi

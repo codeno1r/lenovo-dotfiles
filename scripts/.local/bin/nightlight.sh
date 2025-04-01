@@ -13,7 +13,7 @@ STATE=$(cat "$STATE_FILE")
 
 if [ "$STATE" = "off" ]; then
   # Turn night light ON
-  xrandr --output "$MONITOR" --gamma 1.0:0.6:0.6
+  xrandr --output "$MONITOR" --gamma 0.7:0.7:0.7
   echo "on" >"$STATE_FILE"
   echo ""
 else
