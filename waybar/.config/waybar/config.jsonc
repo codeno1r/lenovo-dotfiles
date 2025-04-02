@@ -8,7 +8,7 @@
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     // "spacing": 4, // Gaps between modules (4px)
-    "spacing": 4, // Gaps between modules (4px)
+    "spacing": 5, // Gaps between modules (4px)
     // Choose the order of the modules
     "margin-top": 5,
     "margin-left": 10,
@@ -16,8 +16,8 @@
     "margin-right": 10,
     "modules-left": [
       "hyprland/workspaces",
-      "tray",
       "custom/vpn",
+      "tray",
       "hyprland/mode",
       "hyprland/scratchpad",
       "custom/media"
@@ -29,10 +29,10 @@
       "cpu",
       "memory",
       "battery",
-      "battery#bat2",
       "pulseaudio",
       "backlight",
       "clock"
+      // "battery#bat2",
       // "network",
       // "temperature",
       // "custom/power"
@@ -43,6 +43,13 @@
       // "sway/language",
     ],
     // Modules configuration
+    "custom/vpn": {
+      "format": "{}",
+      "return-type": "json",
+      "exec": "~/dotfiles/scripts/.local/bin/vpn.sh",
+      "tooltip": false,
+      "restart-interval": 5
+    },
     "hyprland/workspaces": {
       // "persistent-workspaces": {
       //   "1": [],
@@ -72,20 +79,14 @@
         "8": "󰨡",
         "9": "󱃑",
         "10": ""
-        // "11": "󰣇",
-        // "12": "",
-        // "13": "󰊯",
-        // "14": "",
-        // "15": "󰻞",
-        // "16": "󰅼",
-        // "17": "󰻏",
-        // "18": "󰨡",
-        // "19": "󱃑",
-        // "110": ""
         // "urgent": "",
         // "focused": "",
         // "default": ""
       }
+    },
+    "hyprland/window": {
+      "format": "{title}",
+      "separate-outputs": true
     },
     "keyboard-state": {
       "numlock": true,
@@ -143,7 +144,7 @@
       }
     },
     "tray": {
-      // "icon-size": 21,
+      "icon-size": 16,
       "spacing": 10
     },
     "clock": {
@@ -277,12 +278,6 @@
         "reboot": "reboot",
         "suspend": "systemctl suspend",
         "hibernate": "systemctl hibernate"
-      },
-      "custom/vpn": {
-        // "exec": "/home/codenoir/dotfiles/waybar/.config/waybar/vpn.sh",
-        "format": "VPN {}",
-        "tooltip": true,
-        "interval": 5
       }
     }
   },
@@ -303,8 +298,8 @@
     "margin-right": 10,
     "modules-left": [
       "hyprland/workspaces",
-      "tray",
       "custom/vpn",
+      "tray",
       "hyprland/mode",
       "hyprland/scratchpad",
       "custom/media"
@@ -331,18 +326,18 @@
     ],
     // Modules configuration
     "hyprland/workspaces": {
-      // "persistent-workspaces": {
-      //   "1": [],
-      //   "2": [],
-      //   "3": [],
-      //   "4": [],
-      //   "5": [],
-      //   "6": [],
-      //   "7": [],
-      //   "8": [],
-      //   "9": [],
-      //   "10": []
-      // },
+      "persistent-workspaces": {
+        "11": [],
+        "12": [],
+        "13": [],
+        "14": [],
+        "15": [],
+        "16": [],
+        "17": [],
+        "18": [],
+        "19": [],
+        "110": []
+      },
       "disable-scroll": true,
       "all-outputs": false,
       "warp-on-scroll": true,
@@ -373,6 +368,10 @@
         // "focused": "",
         // "default": ""
       }
+    },
+    "hyprland/window": {
+      "format": "{initialTitle}",
+      "separate-outputs": true
     },
     "keyboard-state": {
       "numlock": true,

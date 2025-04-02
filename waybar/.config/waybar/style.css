@@ -73,7 +73,8 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 12px;
+    margin: 0;
+    padding: 0 8px;
     background-color: transparent;
     color: @zinc-300;
 }
