@@ -118,7 +118,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
     {MODKEY, XK_F7, spawn, SHCMD("kill -49 $(pidof dwmblocks); nightlight.sh")},
     {MODKEY | ShiftMask, XK_n, spawn, SHCMD("nlchangestatus.sh")},
-    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("flameshotgui.sh")},
+    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("flameshotgui-dwm.sh")},
     {MODKEY | ShiftMask, XK_m, spawn, SHCMD("win10.sh")},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)

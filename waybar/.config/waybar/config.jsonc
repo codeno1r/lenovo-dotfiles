@@ -16,22 +16,22 @@
     "margin-right": 10,
     "modules-left": [
       "hyprland/workspaces",
-      "custom/vpn",
-      "tray",
+      "hyprland/window",
       "hyprland/mode",
       "hyprland/scratchpad",
       "custom/media"
     ],
     "modules-center": [
-      "hyprland/window"
+      "clock"
     ],
     "modules-right": [
       "cpu",
       "memory",
       "battery",
-      "pulseaudio",
+      "custom/vpn",
       "backlight",
-      "clock"
+      "pulseaudio",
+      "tray"
       // "battery#bat2",
       // "network",
       // "temperature",
@@ -85,7 +85,7 @@
       }
     },
     "hyprland/window": {
-      "format": "{title}",
+      "format": "{class}",
       "separate-outputs": true
     },
     "keyboard-state": {
