@@ -67,7 +67,7 @@
       "all-outputs": false,
       "warp-on-scroll": true,
       // "format": "{name}: {icon}",
-      "format": "{name}",
+      "format": "{icon} {name}",
       "format-icons": {
         "1": "󰣇",
         "2": "",
@@ -154,11 +154,11 @@
       // "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-      "format": "{usage}% ",
+      "format": " {usage}%",
       "tooltip": false
     },
     "memory": {
-      "format": "{}% "
+      "format": " {}%"
     },
     "temperature": {
       // "thermal-zone": 2,
@@ -175,7 +175,7 @@
     "backlight": {
       // "device": "acpi_video1",
       // "format": "{percent}% {icon}",
-      "format": "{icon}",
+      "format": "{icon} {percent}%",
       "format-icons": [
         "",
         "",
@@ -194,11 +194,11 @@
         "warning": 30,
         "critical": 15
       },
-      "format": "{capacity}% {icon}",
-      "format-full": "{capacity}% {icon}",
-      "format-charging": "{capacity}% ",
-      "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}",
+      "format": "{icon} {capacity}%",
+      "format-full": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-alt": "{icon} {time}",
       // "format-good": "", // An empty format will hide the module
       // "format-full": "",
       "format-icons": [
@@ -234,11 +234,15 @@
     },
     "pulseaudio": {
       // "scroll-step": 1, // %, can be a float
-      "format": "{volume}% {icon} {format_source}",
-      "format-bluetooth": "{volume}% {icon} {format_source}",
-      "format-bluetooth-muted": " {icon} {format_source}",
-      "format-muted": " {format_source}",
-      // "format-source": "{volume}% ",
+      // "format": "{icon} {volume}% {format_source}",
+      "format": "{icon} {volume}%",
+      // "format-bluetooth": "{icon} {volume}% {format_source}",
+      "format-bluetooth": "{icon} {volume}%",
+      // "format-bluetooth-muted": "{icon}   {format_source}",
+      "format-bluetooth-muted": "  {icon} ",
+      // "format-muted": "  {format_source}",
+      "format-muted": " ",
+      // "format-source": " {volume}%",
       "format-source": "",
       "format-source-muted": "",
       "format-icons": {
@@ -249,9 +253,12 @@
         "portable": "",
         "car": "",
         "default": [
-          "",
-          "",
-          ""
+          // "",
+          // "",
+          // ""
+          // "",
+          // "",
+          ""
         ]
       },
       "on-click": "pavucontrol"
@@ -290,7 +297,7 @@
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     // "spacing": 4, // Gaps between modules (4px)
-    "spacing": 4, // Gaps between modules (4px)
+    "spacing": 5, // Gaps between modules (4px)
     // Choose the order of the modules
     "margin-top": 5,
     "margin-left": 10,
@@ -298,23 +305,23 @@
     "margin-right": 10,
     "modules-left": [
       "hyprland/workspaces",
-      "custom/vpn",
-      "tray",
+      "hyprland/window",
       "hyprland/mode",
       "hyprland/scratchpad",
       "custom/media"
     ],
     "modules-center": [
-      "hyprland/window"
+      "clock"
     ],
     "modules-right": [
       "cpu",
       "memory",
       "battery",
-      "battery#bat2",
-      "pulseaudio",
+      "custom/vpn",
       "backlight",
-      "clock"
+      "pulseaudio",
+      "tray"
+      // "battery#bat2",
       // "network",
       // "temperature",
       // "custom/power"
@@ -325,35 +332,32 @@
       // "sway/language",
     ],
     // Modules configuration
+    "custom/vpn": {
+      "format": "{}",
+      "return-type": "json",
+      "exec": "~/dotfiles/scripts/.local/bin/vpn.sh",
+      "tooltip": false,
+      "restart-interval": 5
+    },
     "hyprland/workspaces": {
-      "persistent-workspaces": {
-        "11": [],
-        "12": [],
-        "13": [],
-        "14": [],
-        "15": [],
-        "16": [],
-        "17": [],
-        "18": [],
-        "19": [],
-        "110": []
-      },
+      // "persistent-workspaces": {
+      //   "1": [],
+      //   "2": [],
+      //   "3": [],
+      //   "4": [],
+      //   "5": [],
+      //   "6": [],
+      //   "7": [],
+      //   "8": [],
+      //   "9": [],
+      //   "10": []
+      // },
       "disable-scroll": true,
       "all-outputs": false,
       "warp-on-scroll": true,
       // "format": "{name}: {icon}",
-      "format": "{name}",
+      "format": "{icon} {name}",
       "format-icons": {
-        "1": "󰣇",
-        "2": "",
-        "3": "󰊯",
-        "4": "",
-        "5": "󰻞",
-        "6": "󰅼",
-        "7": "󰻏",
-        "8": "󰨡",
-        "9": "󱃑",
-        "10": "",
         "11": "󰣇",
         "12": "",
         "13": "󰊯",
@@ -370,7 +374,7 @@
       }
     },
     "hyprland/window": {
-      "format": "{initialTitle}",
+      "format": "{class}",
       "separate-outputs": true
     },
     "keyboard-state": {
@@ -429,7 +433,7 @@
       }
     },
     "tray": {
-      // "icon-size": 21,
+      "icon-size": 16,
       "spacing": 10
     },
     "clock": {
@@ -439,11 +443,11 @@
       // "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-      "format": "{usage}% ",
+      "format": " {usage}%",
       "tooltip": false
     },
     "memory": {
-      "format": "{}% "
+      "format": " {}%"
     },
     "temperature": {
       // "thermal-zone": 2,
@@ -460,7 +464,7 @@
     "backlight": {
       // "device": "acpi_video1",
       // "format": "{percent}% {icon}",
-      "format": "{icon}",
+      "format": "{icon} {percent}%",
       "format-icons": [
         "",
         "",
@@ -479,11 +483,11 @@
         "warning": 30,
         "critical": 15
       },
-      "format": "{capacity}% {icon}",
-      "format-full": "{capacity}% {icon}",
-      "format-charging": "{capacity}% ",
-      "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}",
+      "format": "{icon} {capacity}%",
+      "format-full": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-alt": "{icon} {time}",
       // "format-good": "", // An empty format will hide the module
       // "format-full": "",
       "format-icons": [
@@ -519,11 +523,15 @@
     },
     "pulseaudio": {
       // "scroll-step": 1, // %, can be a float
-      "format": "{volume}% {icon} {format_source}",
-      "format-bluetooth": "{volume}% {icon} {format_source}",
-      "format-bluetooth-muted": " {icon} {format_source}",
-      "format-muted": " {format_source}",
-      // "format-source": "{volume}% ",
+      // "format": "{icon} {volume}% {format_source}",
+      "format": "{icon} {volume}%",
+      // "format-bluetooth": "{icon} {volume}% {format_source}",
+      "format-bluetooth": "{icon} {volume}%",
+      // "format-bluetooth-muted": "{icon}   {format_source}",
+      "format-bluetooth-muted": "  {icon} ",
+      // "format-muted": "  {format_source}",
+      "format-muted": " ",
+      // "format-source": " {volume}%",
       "format-source": "",
       "format-source-muted": "",
       "format-icons": {
@@ -534,9 +542,12 @@
         "portable": "",
         "car": "",
         "default": [
-          "",
-          "",
-          ""
+          // "",
+          // "",
+          // ""
+          // "",
+          // "",
+          ""
         ]
       },
       "on-click": "pavucontrol"
@@ -563,12 +574,6 @@
         "reboot": "reboot",
         "suspend": "systemctl suspend",
         "hibernate": "systemctl hibernate"
-      },
-      "custom/vpn": {
-        // "exec": "/home/codenoir/dotfiles/waybar/.config/waybar/vpn.sh",
-        "format": "VPN {}",
-        "tooltip": true,
-        "interval": 5
       }
     }
   }
