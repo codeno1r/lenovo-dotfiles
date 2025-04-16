@@ -1,6 +1,5 @@
 // Modify this file to change what commands output to your statusbar, and
 // recompile using the make command.
-
 static const Block blocks[] = {
     /*Icon*/ /*Command*/ /*Update Interval*/ /*Update Signal*/
     {"", "cpu.sh", 5, 0},
@@ -12,6 +11,13 @@ static const Block blocks[] = {
     {"", "battery.sh", 5, 3},
     {"", "date '+%b %d (%a) %I:%M%p '", 60, 0},
 };
+
+// Define StatusCMD
+// static char *getcmds[] = {
+// 	"volume.sh",       // Click action for Volume
+// 	"brightness.sh",   // Click action for Brightness
+// };
+// static int getsigcmds = LENGTH(getcmds);
 
 // sets delimiter between status commands. NULL character ('\0') means no
 // delimiter.

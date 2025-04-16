@@ -4,6 +4,7 @@ export LIBVIRT_DEFAULT_URI="qemu:///session"
 
 eval "$(starship init bash)"
 
+# fastfetch --kitty-direct /home/codenoir/Pictures/fairtytaillogo.png
 fastfetch
 
 alias ll="ls -la --color=auto"

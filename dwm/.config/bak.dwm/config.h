@@ -1,5 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-
 #include <X11/XF86keysym.h>
 
 /* appearance */
@@ -13,10 +12,8 @@ static const unsigned int gappov =
     10; /* vert outer gap between windows and screen edge */
 static int smartgaps =
     0; /* 1 means no outer gap when there is only one window */
-static const int showbar = 1;  /* 0 means no bar */
-static const int topbar = 1;   /* 0 means bottom bar */
-static const int vertpad = 10; /* vertical padding of bar */
-static const int sidepad = 10; /* horizontal padding of bar */
+static const int showbar = 1; /* 0 means no bar */
+static const int topbar = 1;  /* 0 means bottom bar */
 static const char *fonts[] = {"JetBrainsMono Nerd Font:style=Bold:size=14",
                               "Noto Color Emoji:size=12",
                               "NotoSans Nerd Font:size=12"};
@@ -108,6 +105,8 @@ static const Layout layouts[] = {
     .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
   }
 
+#define STATUSBAR "dwmblocks"
+
 /* commands */
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -117,31 +116,8 @@ static const char *filemgrcmd[] = {"thunar", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
-
-    /********************
-    **General Shortcuts**
-    ********************/
-
-    // Tags
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},
-
-    // Terminal
-    {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
-
-    // Menu
     {MODKEY, XK_space, spawn, {.v = dmenucmd}},
-
-    // Switch App Position
-    {MODKEY, XK_Return, zoom, {0}},
-
-    // View last App
-    {MODKEY, XK_Tab, view, {0}},
-
-    // Close App
-    {MODKEY | ShiftMask, XK_c, killclient, {0}},
-
+    {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_b, togglebar, {0}},
     {MODKEY, XK_e, spawn, {.v = filemgrcmd}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
@@ -153,6 +129,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_h, setcfact, {.f = +0.25}},
     {MODKEY | ShiftMask, XK_l, setcfact, {.f = -0.25}},
     {MODKEY | ShiftMask, XK_o, setcfact, {.f = 0.00}},
+    {MODKEY, XK_Return, zoom, {0}},
     {MODKEY | Mod4Mask, XK_u, incrgaps, {.i = +1}},
     {MODKEY | Mod4Mask | ShiftMask, XK_u, incrgaps, {.i = -1}},
     {MODKEY | Mod4Mask, XK_i, incrigaps, {.i = +1}},
@@ -169,39 +146,37 @@ static const Key keys[] = {
     {MODKEY | Mod4Mask | ShiftMask, XK_9, incrovgaps, {.i = -1}},
     {MODKEY | Mod4Mask, XK_0, togglegaps, {0}},
     {MODKEY | Mod4Mask | ShiftMask, XK_0, defaultgaps, {0}},
-    {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-    {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
-    {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
+    {MODKEY, XK_Tab, view, {0}},
+    {MODKEY | ShiftMask, XK_c, killclient, {0}},
+    //	{ MODKEY,                       XK_t,      setlayout,      {.v =
+    //&layouts[0]} }, 	{ MODKEY,                       XK_f,      setlayout,
+    //{.v = &layouts[1]} }, 	{ MODKEY,                       XK_m, setlayout,
+    //{.v = &layouts[2]} }, 	{ MODKEY,                       XK_space,
+    // setlayout, {0} }, 	{ MODKEY|ShiftMask,             XK_space,
+    // togglefloating, {0} },
+    {MODKEY, XK_0, view, {.ui = ~0}},
+    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
     {MODKEY, XK_comma, focusmon, {.i = -1}},
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-
-    // {MODKEY, XK_space, setlayout, {0}},
-    // {MODKEY, XK_0, view, {.ui = ~0}},
-    // {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
-
     // {MODKEY, XK_minus, setgaps, {.i = -1}},
     // {MODKEY, XK_equal, setgaps, {.i = +1}},
     // {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
-
-    // Custom Shortcuts
-    {MODKEY | ShiftMask, XK_s, spawn,
-     SHCMD("flameshotgui-dwm.sh")}, // If you're using DWM
-    {MODKEY | ShiftMask, XK_b, spawn, SHCMD("WebWorkTracker.sh")},
-    {MODKEY | ShiftMask, XK_n, spawn, SHCMD("nlchangestatus.sh")},
-    {MODKEY | ShiftMask, XK_m, spawn, SHCMD("win10.sh")},
-
-    // Lenovo Laptop Custom Shortcut
     {MODKEY, XK_F7, spawn, SHCMD("kill -49 $(pidof dwmblocks); nightlight.sh")},
-    {0, XF86XK_AudioMute, spawn,
+    {MODKEY | ShiftMask, XK_n, spawn, SHCMD("nlchangestatus.sh")},
+    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("flameshotgui-dwm.sh")},
+    {MODKEY | ShiftMask, XK_m, spawn, SHCMD("win10.sh")},
+    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
+        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
+            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},
+    {MODKEY | ShiftMask, XK_F10, spawn,
      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof "
            "dwmblocks)")},
-    {0, XF86XK_AudioRaiseVolume, spawn,
+    {MODKEY | ShiftMask, XK_F12, spawn,
      SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof "
            "dwmblocks)")},
-    {0, XF86XK_AudioLowerVolume, spawn,
+    {MODKEY | ShiftMask, XK_F11, spawn,
      SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof "
            "dwmblocks)")},
     {0, XF86XK_MonBrightnessUp, spawn,
@@ -218,7 +193,9 @@ static const Button buttons[] = {
     {ClkLtSymbol, 0, Button1, setlayout, {0}},
     {ClkLtSymbol, 0, Button3, setlayout, {.v = &layouts[2]}},
     {ClkWinTitle, 0, Button2, zoom, {0}},
-    {ClkStatusText, 0, Button2, spawn, {.v = termcmd}},
+    {ClkStatusText, 0, Button1, sigstatusbar, {.i = 1}},
+    {ClkStatusText, 0, Button2, sigstatusbar, {.i = 2}},
+    {ClkStatusText, 0, Button3, sigstatusbar, {.i = 3}},
     {ClkClientWin, MODKEY, Button1, movemouse, {0}},
     {ClkClientWin, MODKEY, Button2, togglefloating, {0}},
     {ClkClientWin, MODKEY, Button3, resizemouse, {0}},
