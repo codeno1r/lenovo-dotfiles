@@ -3,24 +3,24 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx = 3; /* border pixel of windows */
-static const unsigned int snap = 32;    /* snap pixel */
+static const unsigned int borderpx = 4; /* border pixel of windows */
+static const unsigned int snap = 5;     /* snap pixel */
 static const unsigned int gappih = 5;   /* horiz inner gap between windows */
 static const unsigned int gappiv = 5;   /* vert inner gap between windows */
 static const unsigned int gappoh =
-    10; /* horiz outer gap between windows and screen edge */
+    5; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov =
-    10; /* vert outer gap between windows and screen edge */
+    5; /* vert outer gap between windows and screen edge */
 static int smartgaps =
     0; /* 1 means no outer gap when there is only one window */
-static const int showbar = 1;  /* 0 means no bar */
-static const int topbar = 1;   /* 0 means bottom bar */
-static const int vertpad = 10; /* vertical padding of bar */
-static const int sidepad = 10; /* horizontal padding of bar */
-static const char *fonts[] = {"JetBrainsMono Nerd Font:style=Bold:size=14",
-                              "Noto Color Emoji:size=12",
-                              "NotoSans Nerd Font:size=12"};
-static const char dmenufont[] = "JetBrainsMono Nerd Font:style=Bold:size=14";
+static const int showbar = 1; /* 0 means no bar */
+static const int topbar = 1;  /* 0 means bottom bar */
+static const int vertpad = 0; /* vertical padding of bar */
+static const int sidepad = 0; /* horizontal padding of bar */
+static const char *fonts[] = {"JetBrainsMono Nerd Font:size=14:style=Bold",
+                              "Noto Color Emoji:size=14",
+                              "NotoSans Nerd Font:size=14"};
+static const char dmenufont[] = "JetBrainsMono Nerd Font:size=14:style=Bold";
 
 // 🌿 Elegant & Relaxing DWM Color Scheme
 // static const char dark_slate[] = "#2E3440";
@@ -37,7 +37,12 @@ static const char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+static const char *tags[] = {
+    "1",
+    "2",
+    "3",
+    "4",
+};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -45,22 +50,23 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    {"steam_app_381210", NULL, NULL, 1, 0, 0},
-    {"Code", NULL, NULL, 1 << 1, 0, 0},
-    {"Google-chrome", NULL, NULL, 1 << 2, 0, 0},
-    {"Brave-browser", NULL, NULL, 1 << 2, 0, 0},
-    {"Roam", NULL, NULL, 1 << 3, 0, 0},
-    {"zoom", NULL, NULL, 1 << 5, 0, 0},
-    {"WebWork Tracker", NULL, NULL, 1 << 8, 1, 0},
-    {"mpv", NULL, NULL, 1 << 6, 0, 0},
-    {"Virt-manager", NULL, NULL, 1 << 7, 0, 0},
-    {"Virt-viewer", NULL, NULL, 1 << 7, 0, 0},
-    {"steam", NULL, NULL, 1 << 7, 0, 0},
 
-    {"firefox", NULL, NULL, 1 << 2, 0, 1},
+    // Main Monitor
+    {"Roam", NULL, NULL, 1 << 1, 0, 0},
+    {"zoom", NULL, NULL, 1 << 3, 0, 0},
+    {"mpv", NULL, NULL, 1 << 3, 0, 0},
+    {"WebWork Tracker", NULL, NULL, 1 << 3, 1, 0},
+
+    // Second Monitor
+    {"firefox", NULL, NULL, 1 << 1, 0, 1},
+    {"Google-chrome", NULL, NULL, 1 << 2, 0, 1},
+    {"Brave-browser", NULL, NULL, 1 << 2, 0, 1},
+    {"discord", NULL, NULL, 1 << 3, 0, 1},
     {"WhatSie", NULL, NULL, 1 << 3, 0, 1},
     {"ZapZap", NULL, NULL, 1 << 3, 0, 1},
-    {"discord", NULL, NULL, 1 << 3, 0, 1},
+    {"Virt-manager", NULL, NULL, 1 << 3, 0, 1},
+    {"Virt-viewer", NULL, NULL, 1 << 3, 0, 1},
+
 };
 
 /* layout(s) */
@@ -72,7 +78,7 @@ static const int lockfullscreen =
     1; /* 1 will force focus on the fullscreen window */
 
 #define FORCE_VSPLIT                                                           \
-  1 /* nrowgrid layout: force two clients to always split vertically */
+  0 /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
 
 static const Layout layouts[] = {
@@ -108,11 +114,15 @@ static const Layout layouts[] = {
     .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
   }
 
+#define STATUSBAR "dwmblocks"
+
 /* commands */
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"dmenu_run", "-c", NULL};
-static const char *termcmd[] = {"st", NULL};
+// static const char *dmenucmd[] = {"rofi", "-show", "drun",
+//                                  "drun,filebrowser,run,window", NULL};
+static const char *termcmd[] = {"alacritty", NULL};
 static const char *filemgrcmd[] = {"thunar", NULL};
 
 static const Key keys[] = {
@@ -131,6 +141,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
 
     // Menu
+    // {MODKEY, XK_space, spawn, {.v = dmenucmd}},
     {MODKEY, XK_space, spawn, {.v = dmenucmd}},
 
     // Switch App Position
@@ -169,9 +180,12 @@ static const Key keys[] = {
     {MODKEY | Mod4Mask | ShiftMask, XK_9, incrovgaps, {.i = -1}},
     {MODKEY | Mod4Mask, XK_0, togglegaps, {0}},
     {MODKEY | Mod4Mask | ShiftMask, XK_0, defaultgaps, {0}},
-    {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
-    {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
+
+    // Layout keys
+    // {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
+    // {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
+    // {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
+
     {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
     {MODKEY, XK_comma, focusmon, {.i = -1}},
     {MODKEY, XK_period, focusmon, {.i = +1}},

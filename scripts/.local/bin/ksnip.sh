@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ksnip -r
