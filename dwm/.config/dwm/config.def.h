@@ -38,10 +38,7 @@ static const char *colors[][3] = {
 
 /* tagging */
 static const char *tags[] = {
-    "1",
-    "2",
-    "3",
-    "4",
+    "1", "2", "3", "4", "5",
 };
 
 static const Rule rules[] = {
@@ -53,9 +50,9 @@ static const Rule rules[] = {
 
     // Main Monitor
     {"Roam", NULL, NULL, 1 << 1, 0, 0},
-    {"zoom", NULL, NULL, 1 << 3, 0, 0},
+    {"zoom", NULL, NULL, 1 << 2, 0, 0},
     {"mpv", NULL, NULL, 1 << 3, 0, 0},
-    {"WebWork Tracker", NULL, NULL, 1 << 3, 1, 0},
+    {"WebWork Tracker", NULL, NULL, 1 << 4, 1, 0},
 
     // Second Monitor
     {"firefox", NULL, NULL, 1 << 1, 0, 1},
@@ -64,8 +61,8 @@ static const Rule rules[] = {
     {"discord", NULL, NULL, 1 << 3, 0, 1},
     {"WhatSie", NULL, NULL, 1 << 3, 0, 1},
     {"ZapZap", NULL, NULL, 1 << 3, 0, 1},
-    {"Virt-manager", NULL, NULL, 1 << 3, 0, 1},
-    {"Virt-viewer", NULL, NULL, 1 << 3, 0, 1},
+    {"Virt-manager", NULL, NULL, 1 << 4, 0, 1},
+    {"Virt-viewer", NULL, NULL, 1 << 4, 0, 1},
 
 };
 
