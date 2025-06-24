@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
+export GTK_THEME=Flat-Remix-GTK-Blue-Dark
+export GTK_APPLICATION_PREFER_DARK_THEME=1
 
 export PATH="$HOME/depot_tools:$PATH"
-
 export LIBVIRT_DEFAULT_URI="qemu:///session"
-
 eval "$(starship init bash)"
 
 # pyenv setup

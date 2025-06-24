@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # mpv --no-video --volume=50 --loop-playlist=inf $1 --shuffle
-mpv --volume=50 --loop-playlist=inf $1 --shuffle
+mpv --loop-playlist=inf $1 --shuffle
