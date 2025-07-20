@@ -119,7 +119,7 @@ static char dmenumon[2] =
 static const char *dmenucmd[] = {"dmenu_run", "-c", NULL};
 // static const char *dmenucmd[] = {"rofi", "-show", "drun",
 //                                  "drun,filebrowser,run,window", NULL};
-static const char *termcmd[] = {"alacritty", NULL};
+static const char *termcmd[] = {"st", NULL};
 static const char *filemgrcmd[] = {"thunar", NULL};
 
 static const Key keys[] = {

@@ -9,15 +9,15 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=/opt/WebWork\ Tracker:$PATH
 # [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# startx
+startx
 
-# Start Hyprland automatically on TTY1
-if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
-  exec Hyprland
-fi
+# # Start Hyprland automatically on TTY1
+# if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
+#   exec Hyprland
+# fi
 
-# if uwsm check may-start && uwsm select; then
-#   exec systemd-cat -t uwsm_start uwsm start default
+# if uwsm check may-start; then
+#   exec uwsm start hyprland.desktop
 # fi
 
 # if uwsm check may-start; then
